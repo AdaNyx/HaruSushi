@@ -1,28 +1,30 @@
 export const seedSql = String.raw`
-INSERT INTO items (id, name, category, buy_price, alert_threshold, sort) VALUES
-  ('riz_sac', 'Riz japonais (sac)', 'brut', 20, 2, 10),
-  ('vinaigre', 'Vinaigre de riz', 'brut', 15, 4, 20),
-  ('nori', 'Feuilles de nori', 'brut', 5, 5, 30),
-  ('avocat', 'Avocat', 'brut', 10, 3, 40),
-  ('wasabi', 'Wasabi', 'brut', 8, 2, 50),
-  ('soja', 'Sauce soja', 'brut', 8, 2, 60),
-  ('saumon', 'Saumon', 'brut', NULL, 2, 70),
-  ('thon', 'Thon', 'brut', NULL, 2, 80),
-  ('riz_cuit', 'Riz cuit', 'intermediaire', NULL, 0, 110),
-  ('riz_sushi', 'Riz à sushi', 'intermediaire', NULL, 4, 120),
-  ('filet_saumon', 'Filet de saumon', 'intermediaire', NULL, 3, 130),
-  ('filet_thon', 'Filet de thon', 'intermediaire', NULL, 3, 140),
-  ('plateau', 'Plateau de sushis', 'fini', NULL, 2, 210),
-  ('california', 'California rolls', 'fini', NULL, 3, 220),
-  ('makis_saumon', 'Makis saumon', 'fini', NULL, 3, 230),
-  ('makis_thon', 'Makis thon', 'fini', NULL, 3, 240),
-  ('nigiris_saumon', 'Nigiris saumon', 'fini', NULL, 3, 250),
-  ('nigiris_thon', 'Nigiris thon', 'fini', NULL, 3, 260),
-  ('sashimis', 'Assiette de sashimis', 'fini', NULL, 2, 270),
-  ('eau', 'Eau', 'boisson', 2, 5, 310),
-  ('cola', 'Cola', 'boisson', 2, 5, 320),
-  ('sprunk', 'Sprunk', 'boisson', 2, 5, 330)
+INSERT INTO items (id, name, category, buy_price, sell_price, alert_threshold, sort) VALUES
+  ('riz_sac', 'Riz japonais (sac)', 'brut', 20, NULL, 2, 10),
+  ('vinaigre', 'Vinaigre de riz', 'brut', 15, NULL, 4, 20),
+  ('nori', 'Feuilles de nori', 'brut', 5, NULL, 5, 30),
+  ('avocat', 'Avocat', 'brut', 10, NULL, 3, 40),
+  ('wasabi', 'Wasabi', 'brut', 8, NULL, 2, 50),
+  ('soja', 'Sauce soja', 'brut', 8, NULL, 2, 60),
+  ('saumon', 'Saumon', 'brut', NULL, NULL, 2, 70),
+  ('thon', 'Thon', 'brut', NULL, NULL, 2, 80),
+  ('riz_cuit', 'Riz cuit', 'intermediaire', NULL, NULL, 0, 110),
+  ('riz_sushi', 'Riz à sushi', 'intermediaire', NULL, NULL, 4, 120),
+  ('filet_saumon', 'Filet de saumon', 'intermediaire', NULL, NULL, 3, 130),
+  ('filet_thon', 'Filet de thon', 'intermediaire', NULL, NULL, 3, 140),
+  ('plateau', 'Plateau de sushis', 'fini', NULL, 220, 2, 210),
+  ('california', 'California rolls', 'fini', NULL, 60, 3, 220),
+  ('makis_saumon', 'Makis saumon', 'fini', NULL, 45, 3, 230),
+  ('makis_thon', 'Makis thon', 'fini', NULL, 50, 3, 240),
+  ('nigiris_saumon', 'Nigiris saumon', 'fini', NULL, 40, 3, 250),
+  ('nigiris_thon', 'Nigiris thon', 'fini', NULL, 45, 3, 260),
+  ('sashimis', 'Assiette de sashimis', 'fini', NULL, 85, 2, 270),
+  ('eau', 'Eau', 'boisson', 2, NULL, 5, 310),
+  ('cola', 'Cola', 'boisson', 2, NULL, 5, 320),
+  ('sprunk', 'Sprunk', 'boisson', 2, NULL, 5, 330)
 ON CONFLICT (id) DO NOTHING;
+
+UPDATE items i SET sell_price = v.p FROM (VALUES ('plateau', 220), ('california', 60), ('makis_saumon', 45), ('makis_thon', 50), ('nigiris_saumon', 40), ('nigiris_thon', 45), ('sashimis', 85)) AS v(id, p) WHERE i.id = v.id AND i.sell_price IS NULL;
 
 INSERT INTO recipes (id, name, station, output_item, output_qty, sort) VALUES
   ('cuire_riz', 'Laver et cuire le riz', 'riz', 'riz_cuit', 4, 10),
