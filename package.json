@@ -1,0 +1,27 @@
+{
+  "name": "harusushi",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start"
+  },
+  "engines": {
+    "node": "22.x"
+  },
+  "dependencies": {
+    "@fontsource/ibm-plex-mono": "5.2.5",
+    "@fontsource/ibm-plex-sans": "5.2.5",
+    "@fontsource/shippori-mincho-b1": "5.2.5",
+    "@neondatabase/serverless": "1.1.0",
+    "bcryptjs": "3.0.2",
+    "jose": "6.1.0",
+    "next": "15.5.27",
+    "react": "19.1.9",
+    "react-dom": "19.1.9"
+  },
+  "overrides": {
+    "postcss": "8.5.29"
+  }
+}
